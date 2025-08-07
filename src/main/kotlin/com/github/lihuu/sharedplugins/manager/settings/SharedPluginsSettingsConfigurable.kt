@@ -6,6 +6,7 @@ import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.dsl.builder.panel
 import javax.swing.JComponent
+import com.intellij.openapi.fileChooser.FileChooserDescriptor
 
 /**
  * Provides the user interface for the plugin's settings page in the IDE's Settings/Preferences dialog.
@@ -23,7 +24,7 @@ class SharedPluginsSettingsConfigurable : Configurable {
      */
     override fun createComponent(): JComponent {
         centralDirectoryField = TextFieldWithBrowseButton()
-        // Add a file chooser to the browse button
+        // Add a file chooser to the browse button using the recommended API
         centralDirectoryField.addBrowseFolderListener(
             "Select Central Plugin Directory",
             "Please select the directory where shared plugins will be stored.",

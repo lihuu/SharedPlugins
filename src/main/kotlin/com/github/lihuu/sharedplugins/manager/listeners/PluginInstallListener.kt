@@ -1,14 +1,13 @@
 package com.github.lihuu.sharedplugins.manager.listeners
 
+import com.github.lihuu.sharedplugins.manager.services.SharedPluginsSettings
+import com.github.lihuu.sharedplugins.utils.PluginUtils
 import com.intellij.ide.plugins.DynamicPluginListener
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.notification.NotificationAction
 import com.intellij.notification.NotificationType
-import com.intellij.openapi.project.ProjectManager
-import com.github.lihuu.sharedplugins.manager.services.SharedPluginsSettings
-import com.github.lihuu.sharedplugins.utils.PluginUtils
-import com.intellij.notification.Notification
 import com.intellij.notification.Notifications
+import com.intellij.openapi.project.ProjectManager
 
 
 /**
@@ -38,8 +37,8 @@ class PluginInstallListener : DynamicPluginListener {
         val project = ProjectManager.getInstance().openProjects.firstOrNull()
 
         // Create and show a notification with "Yes" and "No" actions.
-        val notification = Notification(
-            "SharedPluginsManager",
+        val notificationGroup = com.intellij.notification.NotificationGroupManager.getInstance().getNotificationGroup("SharedPluginsManager")
+        val notification = notificationGroup.createNotification(
             "New Plugin Installed",
             "Copy '${pluginDescriptor.name}' to the shared directory?",
             NotificationType.INFORMATION

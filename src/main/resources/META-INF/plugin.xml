@@ -26,6 +26,10 @@
                 id="com.sharedplugins.manager.settings.SharedPluginsSettingsConfigurable"
                 displayName="Shared Plugins Manager"/>
 
+        <!-- Register SharedPluginsSettings as an application service -->
+        <applicationService
+            serviceImplementation="com.github.lihuu.sharedplugins.manager.services.SharedPluginsSettings"/>
+
         <!-- Listener for plugin installation/uninstallation -->
         <dynamicPluginListener
                 implementation="com.github.lihuu.listeners.PluginInstallListener"/>
