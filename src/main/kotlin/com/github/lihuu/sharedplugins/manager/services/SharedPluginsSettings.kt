@@ -46,7 +46,7 @@ class SharedPluginsSettings : PersistentStateComponent<SharedPluginsSettings.Sta
 
     // A property to easily access and modify the central directory path from other parts of the plugin.
     var centralDirectoryPath: String
-        get() = internalState.centralDirectoryPath
+        get() = internalState.centralDirectoryPath+"/SharedPlugins"
         set(value) {
             internalState.centralDirectoryPath = value
         }
