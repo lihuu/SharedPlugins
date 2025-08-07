@@ -30,9 +30,6 @@
         <applicationService
             serviceImplementation="com.github.lihuu.sharedplugins.manager.services.SharedPluginsSettings"/>
 
-        <!-- Listener for plugin installation/uninstallation -->
-        <dynamicPluginListener
-                implementation="com.github.lihuu.listeners.PluginInstallListener"/>
     </extensions>
 
     <actions>

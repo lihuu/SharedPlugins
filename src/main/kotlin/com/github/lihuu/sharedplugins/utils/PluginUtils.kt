@@ -67,8 +67,10 @@ object PluginUtils {
 
         ApplicationManager.getApplication().executeOnPooledThread {
             try {
-                Files.copy(pluginPath, targetPath, StandardCopyOption.REPLACE_EXISTING)
+                LOG.info("PluginPath: $pluginPath, TargetPath: $targetPath")
+                copyDirectory(pluginPath, targetPath)
                 LOG.info("Successfully copied plugin '${plugin.name}' to '$targetPath'")
+                // 这里肯定是有的，但是为什么没有复制成功呢？
                 showNotification(
                     project,
                     "Plugin Copied",
@@ -84,6 +86,23 @@ object PluginUtils {
                     NotificationType.ERROR
                 )
             }
+        }
+    }
+
+    private fun copyDirectory(source: Path, target: Path) {
+        try {
+            Files.walk(source).forEach { sourcePath ->
+                val targetPath = target.resolve(source.relativize(sourcePath))
+                if (Files.isDirectory(sourcePath)) {
+                    if (!Files.exists(targetPath)) {
+                        Files.createDirectories(targetPath)
+                    }
+                } else {
+                    Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING)
+                }
+            }
+        } catch (e: IOException) {
+            LOG.error("Failed to copy directory from '$source' to '$target'", e)
         }
     }
 
